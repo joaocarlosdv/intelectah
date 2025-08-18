@@ -1,3 +1,38 @@
+create table Fabricante (
+	Id int IDENTITY(1,1) NOT NULL primary key,
+	Nome varchar(100)  NOT NULL,
+	PaisOrigem varchar(50) NOT NULL,
+	WebSite varchar(100) NULL,
+	AnoFundacao int NOT NULL,
+	deletado bit DEFAULT 0 NOT NULL
+);
+
+create table veiculo (
+	Id int IDENTITY(1,1) NOT NULL primary key,
+	Modelo varchar(100)  NOT NULL,
+	AnoFabricacao int NOT NULL,
+	Preco numeric(17,2) NOT NULL,
+	FabricanteId int NOT NULL foreign key references Fabricante (Id),
+	TipoVeiculo int NOT NULL,
+	Descricao text NULL,
+	deletado bit DEFAULT 0 NOT NULL
+);
+
+create table Concessionaria (
+	Id int IDENTITY(1,1) NOT NULL primary key,
+	Nome varchar(100)  NOT NULL,
+	Cep varchar(8) NULL,
+	Logradouro varchar(100) NULL,
+	Numero varchar(10) NULL,
+	Bairro varchar(50) NULL,
+	Cidade varchar(50) NULL, 
+	Uf varchar(2) NULL,
+	Telefone varchar(14) NULL,
+	Email varchar(100) NULL,
+	CapacidadeMaxima int NOT NULL,
+	deletado bit DEFAULT 0 NOT NULL
+);
+
 create table Cliente (
 	Id int IDENTITY(1,1) NOT NULL primary key,
 	Nome varchar(100)  NOT NULL,
