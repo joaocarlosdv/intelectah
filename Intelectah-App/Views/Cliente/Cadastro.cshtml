@@ -1,0 +1,100 @@
+﻿@model ClienteViewModel;
+@{
+    ViewData["Title"] = Model.Acao == "E" ? "Editar Cliente" : Model.Acao == "I" ? "Cadastrar Cliente" : "Visualizar Cliente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="banner p-0">
+    <div class="container-fluid">
+        <form action="@Url.Action("Salvar")"
+              method="post">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-header d-flex justify-content-start top-h flex-column align-items-start">
+                        <h2 class="content-header-title float-left mb-0">@ViewData["Title"]</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Cliente")">Cliente</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Id</label>
+                                <input type="text"
+                                       class="form-control"
+                                       name="id"
+                                       id="id"
+                                       value="@Model.Cliente!.Id"
+                                       readonly />
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>CPF*</label>
+                                <input type="text"
+                                       class="form-control"
+                                       name="cpf"
+                                       id="cpf"
+                                       value="@Model.Cliente!.Cpf"
+                                       maxlength="15"
+                                       required
+                                @(Model.Acao == "V" ? "disabled" : string.Empty) />
+                            </div>
+                        </div>
+                        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Nome*</label>
+                                <input type="text"
+                                       class="form-control"
+                                       name="nome"
+                                       id="nome"
+                                       value="@Model.Cliente!.Nome"
+                                       maxlength="100"
+                                       required
+                                @(Model.Acao == "V" ? "disabled" : string.Empty) />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Telefone</label>
+                                <input type="text"
+                                       class="form-control"
+                                       name="telefone"
+                                       id="telefone"
+                                       value="@Model.Cliente!.Telefone"
+                                       maxlength="15"                                       
+                                @(Model.Acao == "V" ? "disabled" : string.Empty) />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <br />
+                <div class="card-footer">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
+                        <button type="submit"
+                                class="btn btn-primary"
+                                id="btnSalvar"
+                        @(Model.Acao == "V" ? "hidden" : string.Empty)>
+                            Salvar
+                        </button>
+                        <a href="@Url.Action("Index", "Cliente")"
+                           class="btn btn-secondary">
+                            @(Model.Acao == "V" ? "Fechar" : "Cancelar")
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script src="/views/cliente.cadastro.js"></script>
+

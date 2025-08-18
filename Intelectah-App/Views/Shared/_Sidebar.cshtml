@@ -1,0 +1,85 @@
+﻿@using System.Security.Claims;
+
+<ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar" style="padding-top: 80px;">
+
+        
+    <hr class="sidebar-divider my-0" style="color: white">
+
+    <li class="nav-item active">
+        <a class="nav-link" href="@Url.Action("Index", "Home")">
+            <i class="fas fa-fw fa-home"></i>
+            <span>HOME</span>
+        </a>
+    </li>
+
+    <!-- Nav Item - Dashboard -->
+    @* @if (UsuarioConectadoHelper.ValidaTransacao((User.Identity as ClaimsIdentity), "0089"))
+    {
+        <li class="nav-item active">
+            <a class="nav-link" href="@Url.Action("Index", "Dashboard")">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>DASHBOARDS</span>
+            </a>
+        </li>
+    } *@
+        
+        
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCadastros"
+            aria-expanded="true" aria-controls="collapseCadastros">
+            <i class="bi bi-database-add"></i>
+            <span>CADASTROS</span>
+        </a>
+        <div id="collapseCadastros" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <a class="nav-link collapsed" href="@Url.Action("Index", "Fabricante")">
+                <span>FABRICANTES</span>
+            </a>
+        </div>
+        <div id="collapseCadastros" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <a class="nav-link collapsed" href="@Url.Action("Index", "Veiculo")">
+                <span>VEÍCULOS</span>
+            </a>
+        </div>
+        <div id="collapseCadastros" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <a class="nav-link collapsed" href="@Url.Action("Index", "Concessionaria")">                
+                <span>CONCESSIONÁRIAS</span>
+            </a>
+        </div>
+        <div id="collapseCadastros" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <a class="nav-link collapsed" href="@Url.Action("Index", "Cliente")">
+                <span>CLIENTES</span>
+            </a>
+        </div>
+    </li>  
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVendas"
+           aria-expanded="true" aria-controls="collapseVendas">
+            <i class="bi bi-cash-coin"></i>
+            <span>VENDAS</span>
+        </a>
+        <div id="collapseVendas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <a class="nav-link collapsed" href="@Url.Action("Index", "Vendas")">
+                <span>VENDAS</span>
+            </a>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAcesso"
+           aria-expanded="true" aria-controls="collapseAcesso">
+            <i class="bi bi-people-fill"></i>
+            <span>ACESSO</span>
+        </a>
+        <div id="collapseAcesso" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <a class="nav-link collapsed" href="@Url.Action("Index", "Usuario")">
+                <span>USUÁRIOS</span>
+            </a>
+        </div>
+    </li>
+
+    <hr class="sidebar-divider d-none d-md-block" style="color: white">
+
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>    
+</ul>
+

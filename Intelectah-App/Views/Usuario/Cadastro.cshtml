@@ -1,0 +1,129 @@
+﻿@model UsuarioViewModel;
+@{
+    ViewData["Title"] = Model.Acao == "E" ? "Editar Usuário" : Model.Acao == "I" ? "Cadastrar Usuário" : "Visualizar Usuário";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="banner p-0">
+    <div class="container-fluid">
+        <form action="@Url.Action("Salvar")"
+              method="post">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-header d-flex justify-content-start top-h flex-column align-items-start">
+                        <h2 class="content-header-title float-left mb-0">@ViewData["Title"]</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Veiculo")">Usuário</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Id</label>
+                                <input type="text"
+                                       class="form-control"
+                                       name="id"
+                                       id="id"
+                                       value="@Model.Usuario!.Id"
+                                       readonly />
+                            </div>
+                        </div>
+                        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Nome*</label>
+                                <input type="text"
+                                       class="form-control"
+                                       name="nome"
+                                       id="nome"
+                                       value="@Model.Usuario!.Nome"
+                                       required
+                                @(Model.Acao == "V" ? "disabled" : string.Empty) />
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Senha</label>
+                                <input type="password"
+                                       class="form-control"
+                                       name="senha"
+                                       id="senha"
+                                       value="@Model.Usuario!.Senha"
+                                @(Model.Acao == "V" ? "disabled" : string.Empty) />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>E-Mail</label>
+                                <input type="email"
+                                       class="form-control"
+                                       name="email"
+                                       id="email"
+                                       value="@Model.Usuario!.Email"
+                                       required
+                                @(Model.Acao == "V" ? "disabled" : string.Empty) />
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Nível de Acesso</label>
+                                <select class="form-select"
+                                        name="nivelAcesso"
+                                        id="nivelAcesso"
+                                        @(Model.Acao == "V" ? "disabled" : string.Empty)>
+                                    <option value="-1">Selecione tipo</option>
+                                    @if (Model.Usuario.NivelAcesso == Application.Enums.NivelAcessoEnum.Administrador)
+                                    {
+                                        <option value="0" selected>Administrador</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="0">Administrador</option>
+                                    }
+                                    @if (Model.Usuario.NivelAcesso == Application.Enums.NivelAcessoEnum.Gerente)
+                                    {
+                                        <option value="1" selected>Gerente</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="1">Gerente</option>
+                                    }
+                                    @if (Model.Usuario.NivelAcesso == Application.Enums.NivelAcessoEnum.Vendedor)
+                                    {
+                                        <option value="2" selected>Vendedor</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="2">Vendedor</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="card-footer">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
+                        <button type="submit"
+                                class="btn btn-primary"
+                                id="btnSalvar"
+                        @(Model.Acao == "V" ? "hidden" : string.Empty)>
+                            Salvar
+                        </button>
+                        <a href="@Url.Action("Index", "Usuario")"
+                           class="btn btn-secondary">
+                            @(Model.Acao == "V" ? "Fechar" : "Cancelar")
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+

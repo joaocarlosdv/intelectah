@@ -1,0 +1,164 @@
+﻿@model VeiculoViewModel;
+@{
+    ViewData["Title"] = Model.Acao == "E" ? "Editar Veiculo" : Model.Acao == "I" ? "Cadastrar Veiculo" : "Visualizar Veiculo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="banner p-0">
+    <div class="container-fluid">
+        <form action="@Url.Action("Salvar")"
+              method="post">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-header d-flex justify-content-start top-h flex-column align-items-start">
+                        <h2 class="content-header-title float-left mb-0">@ViewData["Title"]</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Veiculo")">Veiculo</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Id</label>
+                                <input type="text"
+                                       class="form-control"
+                                       name="id"
+                                       id="id"
+                                       value="@Model.Veiculo!.Id"
+                                       readonly />
+                            </div>
+                        </div>
+                        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Modelo*</label>
+                                <input type="text"
+                                       class="form-control"
+                                       name="modelo"
+                                       id="modelo"
+                                       value="@Model.Veiculo!.Modelo"
+                                       required
+                                @(Model.Acao == "V" ? "disabled" : string.Empty) />
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Ano Fabricacao</label>
+                                <input type="number"
+                                       class="form-control"
+                                       name="anoFabricacao"
+                                       id="anoFabricacao"
+                                       value="@Model.Veiculo!.AnoFabricacao"
+                                @(Model.Acao == "V" ? "disabled" : string.Empty) />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Fabricante</label>
+                                <select class="form-select"
+                                        name="fabricanteId"
+                                        id="fabricanteId"
+                                        @(Model.Acao == "V" ? "disabled" : string.Empty)>
+                                    <option value="-1">Selecione um fabricante</option>
+                                    @foreach (var fabricante in Model.ListaFabricante!)
+                                    {
+                                        if (fabricante.Id == Model.Veiculo.FabricanteId)
+                                        {
+                                            <option value="@fabricante.Id" selected>@fabricante.Nome</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@fabricante.Id">@fabricante.Nome</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Tipo Veículo</label>
+                                <select class="form-select"
+                                        name="tipoVeiculo"
+                                        id="tipoVeiculo"
+                                        @(Model.Acao == "V" ? "disabled" : string.Empty)>
+                                    <option value="-1">Selecione tipo</option>
+                                    @if (Model.Veiculo.TipoVeiculo == Application.Enums.TipoVeiculoEnum.Carro)
+                                    {
+                                        <option value="0" selected>Carro</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="0">Carro</option>
+                                    }
+                                    @if (Model.Veiculo.TipoVeiculo == Application.Enums.TipoVeiculoEnum.Moto)
+                                    {
+                                        <option value="1" selected>Moto</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="1">Moto</option>
+                                    }
+                                    @if (Model.Veiculo.TipoVeiculo == Application.Enums.TipoVeiculoEnum.Caminhão)
+                                    {
+                                        <option value="2" selected>Caminhão</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="2">Caminhão</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Preço</label>
+                                <input type="text"
+                                       class="form-control"
+                                       name="preco"
+                                       id="preco"
+                                       value="@Model.Veiculo!.Preco.ToString("N2")"
+                                @(Model.Acao == "V" ? "disabled" : string.Empty) />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Descrição</label>
+                                <textarea type="text"
+                                          class="form-control"
+                                          id="descricao"
+                                          name="descricao"
+                                          rows="3"
+                                @(Model.Acao == "V" ? "readonly" : string.Empty)>@Model.Veiculo.Descricao</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="card-footer">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
+                        <button type="submit"
+                                class="btn btn-primary"
+                                id="btnSalvar"
+                        @(Model.Acao == "V" ? "hidden" : string.Empty)>
+                            Salvar
+                        </button>
+                        <a href="@Url.Action("Index", "Veiculo")"
+                           class="btn btn-secondary">
+                            @(Model.Acao == "V" ? "Fechar" : "Cancelar")
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script src="/views/veiculo.cadastro.js"></script>
+

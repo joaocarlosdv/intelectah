@@ -1,0 +1,6 @@
+@Intelectah_Api_HostAddress = http://localhost:5139
+
+GET {{Intelectah_Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

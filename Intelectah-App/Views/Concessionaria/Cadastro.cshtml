@@ -1,0 +1,209 @@
+﻿@model ConcessionariaViewModel;
+@{
+    ViewData["Title"] = Model.Acao == "E" ? "Editar Concessionária" : Model.Acao == "I" ? "Cadastrar Concessionária" : "Visualizar Concessionária";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="banner p-0">
+    <div class="container-fluid">
+        <form action="@Url.Action("Salvar")"
+              method="post">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-header d-flex justify-content-start top-h flex-column align-items-start">
+                        <h2 class="content-header-title float-left mb-0">@ViewData["Title"]</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Concessionaria")">Concessionária</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Id</label>
+                                <input type="text"
+                                       class="form-control"
+                                       name="id"
+                                       id="id"
+                                       value="@Model.Concessionaria!.Id"
+                                       readonly />
+                            </div>
+                        </div>
+                        <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Nome*</label>
+                                <input type="text"
+                                       class="form-control"
+                                       name="nome"
+                                       id="nome"
+                                       value="@Model.Concessionaria!.Nome"
+                                       maxlength="100"
+                                       required
+                                @(Model.Acao == "V" ? "disabled" : string.Empty) />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>CEP*</label>
+                                @* <input type="text"
+                                       class="form-control"
+                                       name="cep"
+                                       id="cep"
+                                       value="@Model.Concessionaria!.Cep"
+                                       maxlength="8"
+                                       required
+                                       @(Model.Acao == "V" ? "disabled" : string.Empty) /> *@
+                                <div class="input-group mb-3">                                      
+                                    <input type="text"
+                                           class="form-control"
+                                           name="cep"
+                                           id="cep"
+                                           value="@Model.Concessionaria!.Cep"
+                                           maxlength="8"
+                                           required
+                                    @(Model.Acao == "V" ? "disabled" : string.Empty) />
+                                    <div class="input-group-prepend">
+                                        <button type="button"
+                                                class="btn btn-primary"
+                                                id="btnCep"
+                                                @(Model.Acao == "V" ? "disabled" : string.Empty)>
+                                            <i class="bi bi-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Logradouro*</label>
+                                <input type="text"
+                                       class="form-control"
+                                       name="logradouro"
+                                       id="logradouro"
+                                       value="@Model.Concessionaria!.Logradouro"
+                                       maxlength="50"
+                                       required
+                                @(Model.Acao == "V" ? "disabled" : string.Empty) />
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Nº</label>
+                                <input type="text"
+                                       class="form-control"
+                                       name="numero"
+                                       id="numero"
+                                       value="@Model.Concessionaria!.Numero"
+                                       maxlength="10"
+                                @(Model.Acao == "V" ? "disabled" : string.Empty) />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Bairro*</label>
+                                <input type="text"
+                                       class="form-control"
+                                       name="bairro"
+                                       id="bairro"
+                                       value="@Model.Concessionaria!.Bairro"
+                                       maxlength="50"
+                                       required
+                                @(Model.Acao == "V" ? "disabled" : string.Empty) />
+                            </div>
+                        </div>
+                        <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Cidade*</label>
+                                <input type="text"
+                                       class="form-control"
+                                       name="cidade"
+                                       id="cidade"
+                                       value="@Model.Concessionaria!.Cidade"
+                                       maxlength="50"
+                                       required
+                                @(Model.Acao == "V" ? "disabled" : string.Empty) />
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>UF*</label>
+                                <input type="text"
+                                       class="form-control"
+                                       name="uf"
+                                       id="uf"
+                                       value="@Model.Concessionaria!.Uf"
+                                       maxlength="2"
+                                       required
+                                @(Model.Acao == "V" ? "disabled" : string.Empty) />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Telefone</label>
+                                <input type="text"
+                                       class="form-control"
+                                       name="telefone"
+                                       id="telefone"
+                                       value="@Model.Concessionaria!.Telefone"
+                                @(Model.Acao == "V" ? "disabled" : string.Empty) />
+                            </div>
+                        </div>
+                        <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>E-Mail</label>
+                                <input type="email"
+                                       class="form-control"
+                                       name="email"
+                                       id="email"
+                                       value="@Model.Concessionaria!.Email"
+                                @(Model.Acao == "V" ? "disabled" : string.Empty) />
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Capacidade Máxima</label>
+                                <input type="number"
+                                       class="form-control"
+                                       name="capacidadeMaxima"
+                                       id="capacidadeMaxima"
+                                       value="@Model.Concessionaria!.CapacidadeMaxima"
+                                @(Model.Acao == "V" ? "disabled" : string.Empty) />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <br />
+                <div class="card-footer">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
+                        <button type="submit"
+                                class="btn btn-primary"
+                                id="btnSalvar"
+                        @(Model.Acao == "V" ? "hidden" : string.Empty)>
+                            Salvar
+                        </button>
+                        <a href="@Url.Action("Index", "Concessionaria")"
+                           class="btn btn-secondary">
+                            @(Model.Acao == "V" ? "Fechar" : "Cancelar")
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script src="/views/concessionaria.cadastro.js"></script>
+

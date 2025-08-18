@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "Novo Perfil",
+    "Projects": [
+      {
+        "Path": "Intelectah-Api\\Intelectah-Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Intelectah-App\\Intelectah-App.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

@@ -1,0 +1,121 @@
+﻿$(document).ready(function () {
+
+    $('#myTable').DataTable({
+        processing: false,
+        serverSide: true,
+        ajax: {
+            url: '/Vendas/Consultar',
+            type: 'GET',
+            data: function (d) {
+                return {
+                    limit: d.length,
+                    offset: d.start,
+                    search: d.search.value,
+                    colOrder: d.order[0].column,
+                    dirOrder: d.order[0].dir,
+                };
+            },
+            dataSrc: function (json) {
+                console.log('json', json);
+                return json.lista;
+            }
+        },
+        columns: [
+            { data: 'id', title: 'Id' },
+            { data: 'protocoloVenda', title: 'Protocolo' },
+            { data: 'cliente.nome', title: 'Cliente' },
+            { data: 'veiculo.modelo', title: 'Veículo' },
+            { data: 'concessionaria.nome', title: 'Concessionária' },
+            {
+                data: 'dataVenda',
+                title: 'Data',
+                render: function (data, type, row) {
+                    if (!data) return '';
+                    var date = new Date(data);
+                    var day = String(date.getDate()).padStart(2, '0');
+                    var month = String(date.getMonth() + 1).padStart(2, '0');
+                    var year = date.getFullYear();
+                    return day + '/' + month + '/' + year;
+                }
+            },
+            {
+                data: 'precoVenda',
+                title: 'Preço',
+                render: function (data, type, row) {
+                    if (data == null) return '';
+                    return data.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                }
+            },
+            {
+                data: null,
+                title: 'Ações',
+                render: function (data, type, row) {
+
+                    var btnEditar = '';
+                    var btnVisualizar = '';
+                    var btnExcluir = '';
+
+                    const urlEditar = `/Vendas/Alterar?id=${row.id}`;
+                    btnEditar = `
+                            <a class="d-block px-1"
+                                style="color: black"
+                                href="${urlEditar}"
+                            >
+                                <i class="bi bi-pencil-square"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="Editar">
+                                </i>
+                            </a>
+                        `;
+
+                    const urlVisualizar = `/Vendas/Visualizar?id=${row.id}`;
+                    btnVisualizar = `
+                                <a class="d-block px-1"
+                                    style="color: black"
+                                        href="${urlVisualizar}"
+                                >
+                                        <i class="bi bi-eye"
+                                        data-toggle="tooltip"
+                                        data-placement="top"
+                                            title="Visualizar">
+                                    </i>
+                                </a>
+                            `;
+
+                    const urlExcluir = `/Vendas/Excluir?id=${row.id}`;
+                    btnExcluir = `
+                            <a class="d-block px-1"
+                                style="color: black"
+                                href="${urlExcluir}"
+                            >
+                                <i class="bi bi-trash"
+                                    data-toggle=""
+                                    data-placement=""
+                                    title="Excluir">
+                                </i>
+                            </a>
+                        `;
+
+
+                    return `<div class="d-flex">` + btnVisualizar + btnEditar + btnExcluir + `<\div>`;
+                }
+            }
+        ],
+        order: [[3, 'asc']],
+        pageLength: 10,
+        lengthMenu: [10, 50, 100],
+        language: {
+            zeroRecords: "Nenhum registro encontrado.",
+            search: "Localizar",
+            lengthMenu: "Itens por página _MENU_ ",
+            paginate: {
+                previous: "< Anterior ",
+                next: " Próxima >",
+            },
+            sInfo: "Exibindo de _START_ até _END_ de _TOTAL_ registros",
+            "infoFiltered": "",
+            sInfoEmpty: "Exibindo 0 registros"
+        }
+    });
+});
