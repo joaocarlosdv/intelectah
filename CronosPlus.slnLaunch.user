@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "Novo Perfil",
+    "Projects": [
+      {
+        "Path": "Intelectah-Api\\CronosPlus-Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Intelectah-App\\CronosPlus-App.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
